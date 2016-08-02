@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import
+            alias="v"
+            type="android.view.View"></import>
+
+        <variable
+            name="viewmodel"
+            type="info.sajib.weatherapp.viewmodel.MainViewModel"></variable>
+    </data>
+    <info.sajib.weatherapp.Weatherlayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/weather_background"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Today Forecast"
+            android:visibility="@{viewmodel.isload?v.VISIBLE:v.INVISIBLE}"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:visibility="@{viewmodel.isload?v.VISIBLE:v.INVISIBLE}"
+            app:text="@{viewmodel.address}" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewmodel.isload?v.VISIBLE:v.INVISIBLE}">
+
+            <ImageView
+                android:id="@+id/cloud_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                app:src="@{viewmodel.imageicon}" />
+
+            <TextView
+                android:id="@+id/temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:textColor="@android:color/white"
+                android:textSize="26sp"
+                app:Click="@{viewmodel.changeUnit}"
+                app:text="@{viewmodel.temp}" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textSize="18sp"
+            android:visibility="@{viewmodel.isload?v.VISIBLE:v.INVISIBLE}"
+            app:text="@{viewmodel.description}" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:background="@drawable/rectangle2"
+            android:orientation="horizontal"
+            android:visibility="@{viewmodel.isload?v.VISIBLE:v.INVISIBLE}">
+
+            <ImageView
+                android:id="@+id/temp_icon1"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/thermometer" />
+
+            <ImageView
+                android:id="@+id/temp_maximum_icon"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/temp_maximum" />
+
+            <TextView
+                android:id="@+id/temp_maximum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:text="@{viewmodel.maxtemp}" />
+
+            <ImageView
+                android:id="@+id/temp_icon2"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/thermometer" />
+
+            <ImageView
+                android:id="@+id/temp_minimum_icon"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+
+                android:src="@drawable/temp_minimum" />
+
+            <TextView
+                android:id="@+id/temp_minimum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:text="@{viewmodel.mintemp}" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/graphview"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:drawableBottom="@drawable/statistics"
+            app:Click="@{viewmodel.GoToGraphView}"
+            android:visibility="@{viewmodel.isload?v.VISIBLE:v.INVISIBLE}"
+            />
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            card_view:cardCornerRadius="2dp"
+            card_view:cardElevation="6dp"
+            android:visibility="@{viewmodel.isload?v.VISIBLE:v.INVISIBLE}"
+            card_view:cardUseCompatPadding="true"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:visibility="@{viewmodel.isload?v.VISIBLE:v.INVISIBLE}">
+
+                <TextView
+                    android:id="@+id/pressure_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:text="pressure"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/pressure"
+                    android:layout_centerHorizontal="true"
+                    />
+
+                <TextView
+                    android:id="@+id/pressure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="4dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    app:text="@{viewmodel.pressure}" />
+
+                <TextView
+                    android:id="@+id/humidity_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pressure_title"
+                    android:layout_marginBottom="8dp"
+                    android:text="Humidity"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/wet"
+                    android:layout_below="@+id/pressure_title"
+                    android:layout_centerHorizontal="true"
+                    />
+
+                <TextView
+                    android:id="@+id/humidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/pressure_title"
+                    android:layout_marginBottom="4dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    app:text="@{viewmodel.humidity}" />
+
+
+                <TextView
+                    android:id="@+id/speed_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/humidity_title"
+                    android:layout_marginBottom="4dp"
+                    android:text="Wind Speed"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/windpeed"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/humidity_title"
+                    />
+
+                <TextView
+                    android:id="@+id/speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/humidity_title"
+                    android:layout_marginBottom="4dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    app:text="@{viewmodel.windspeed}" />
+
+                <TextView
+                    android:id="@+id/degree_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/speed_title"
+                    android:layout_marginBottom="4dp"
+                    android:text="Wind Degree"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/windauge"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/speed_title"
+                    />
+
+                <TextView
+                    android:id="@+id/degree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/speed_title"
+                    android:layout_marginBottom="4dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    app:text="@{viewmodel.winddegree}" />
+
+                <TextView
+                    android:id="@+id/sunrise_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/degree_title"
+                    android:layout_marginBottom="4dp"
+                    android:text="SunRise Time"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/sunrise"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/degree_title"
+                    />
+
+                <TextView
+                    android:id="@+id/sunrise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/degree_title"
+                    android:layout_marginBottom="4dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    app:text="@{viewmodel.sunrise}" />
+
+                <TextView
+                    android:id="@+id/sunset_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sunrise_title"
+                    android:layout_marginBottom="4dp"
+                    android:text="Sunset Time"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/sunset"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/sunrise_title"
+                    />
+
+                <TextView
+                    android:id="@+id/sunset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/sunrise_title"
+                    android:layout_marginBottom="4dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    app:text="@{viewmodel.sunset}" />
+
+                />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewmodel.isloaded?v.INVISIBLE:v.VISIBLE}"
+            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:text="@{viewmodel.infomessage}"
+                android:background="@drawable/rectangle"
+                android:textColor="@android:color/white"
+                app:visibility="@{viewmodel.infomessagevisibility}"
+                />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </info.sajib.weatherapp.Weatherlayout>
+</layout>
